@@ -131,16 +131,6 @@
                         onBeforeState.call(stateStore, eventName, lastState.name, nextState.name);
                     }
 
-                    //retrieve enter state hook
-                    onEnterState = stateMachine['onenter' + currentState.name] || stateMachine['on' + currentState.name];
-
-                    //if a hook is attached
-                    if (onEnterState && typeof onEnterState === 'function') {
-
-                        //apply it
-                        onEnterState.call(stateStore, eventName, lastState.name, nextState.name);
-                    }
-
                     //retrieve leave state hook
                     onLeaveState = stateMachine['onleave' + lastState.name];
 
@@ -151,6 +141,16 @@
                         onLeaveState.call(stateStore, eventName, lastState.name, nextState.name);
                     }
 
+                    //retrieve enter state hook
+                    onEnterState = stateMachine['onenter' + currentState.name] || stateMachine['on' + currentState.name];
+
+                    //if a hook is attached
+                    if (onEnterState && typeof onEnterState === 'function') {
+
+                        //apply it
+                        onEnterState.call(stateStore, eventName, lastState.name, nextState.name);
+                    }
+                    
                     //notify notification callbacks about transition
                     notify.call(stateStore, eventName, lastState.name, nextState.name);
 
